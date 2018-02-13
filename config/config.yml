@@ -1,3 +1,6 @@
+framework:
+  environment: %app_environment%
+
 database:
   database_host: %database_host%
   database_port: %database_port%

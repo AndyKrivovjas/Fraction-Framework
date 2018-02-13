@@ -10,7 +10,9 @@ Application::autoload();
 // Defining constants
 Application::defineConstants();
 
-$config = new Config();
+$appConfig = new Config();
 
 // Bootstrapping the application
-$app = Application::bootstrap($config);
+$app = Application::bootstrap($appConfig);
+
+echo $s['1'];

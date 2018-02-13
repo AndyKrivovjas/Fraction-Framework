@@ -35,4 +35,16 @@ class Config {
   public function getAll() {
     return $this->data;
   }
+
+  public function get($key) {
+    $keys = explode('.', $key);
+
+    $child = $this->data;
+    while(!empty($keys)) {
+      $k = array_shift($keys);
+      $child = $child[$k];
+    }
+
+    return isset($child) ? $child : false;
+  }
 }

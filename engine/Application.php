@@ -53,8 +53,8 @@ class Application {
 
     // Set error handling
     error_reporting(E_ALL);
-//    set_error_handler('Fraction\Debug\Error::errorHandler');
-//    set_exception_handler('Fraction\Debug\Error::exceptionHandler');
+    set_error_handler('Fraction\Debug\Error::errorHandler');
+    set_exception_handler('Fraction\Debug\Error::exceptionHandler');
 
   }
 
