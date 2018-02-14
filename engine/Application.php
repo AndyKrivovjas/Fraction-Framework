@@ -15,17 +15,24 @@
 namespace Fraction;
 
 
-use Fraction\Fraction\Config\Config;
+use Fraction\Core\ApplicationConstantsTrait;
+use Fraction\Config\Config;
 
 class Application {
-  public function __construct(Config $config) {
-    $this->init($config->getAll());
-    $this->dispatch();
+  use ApplicationConstantsTrait;
 
+  public static $config;
+
+  public function __construct(Config $config) {
+    self::$config = $config;
+
+    $this->init();
+    $this->dispatch();
   }
 
-  public static function bootstrap(Config $config) {
-    $app = new Application($config);
+  public static function bootstrap() {
+    $appConfig = new Config();
+    $app = new Application($appConfig);
 
     return $app;
   }
@@ -39,18 +46,7 @@ class Application {
     });
   }
 
-  public static function defineConstants() {
-    define('DIR_ENGINE', __DIR__);
-    define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT']);
-    define('DIR_APP', DIR_ROOT . '/app');
-    define('DIR_CONFIG', DIR_ROOT . '/config');
-    define('DIR_LOGS', DIR_ROOT . '/var/logs');
-    define('DIR_CACHE', DIR_ROOT . '/var/cache');
-  }
-
-
-  private function init($config) {
-
+  private function init() {
     // Set error handling
     error_reporting(E_ALL);
     set_error_handler('Fraction\Debug\Error::errorHandler');

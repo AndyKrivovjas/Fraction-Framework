@@ -3,4 +3,4 @@
 /var/cache/**/*
 /var/logs/**/*
 
-!**/.gitkeep
+!**/README.md

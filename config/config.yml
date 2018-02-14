@@ -1,9 +1,9 @@
-framework:
-  environment: %app_environment%
+app:
+  env: %app_environment%
 
-database:
-  database_host: %database_host%
-  database_port: %database_port%
-  database_name: %database_name%
-  database_user: %database_user%
-  database_password: %database_password%
+db:
+  host: %database_host%
+  port: %database_port%
+  name: %database_name%
+  user: %database_user%
+  password: %database_password%

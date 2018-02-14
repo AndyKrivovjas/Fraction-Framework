@@ -12,16 +12,18 @@
  * file that was distributed with this source code.
  */
 
-namespace Fraction\Fraction\Config;
+namespace Fraction\Config;
 
 
+use Fraction\Application;
+use Fraction\Helper\ArrayHelper;
 use Fraction\Yaml\Yaml;
 
 class Config {
   private $data = [];
 
   public function __construct() {
-    $params = Yaml::parse(DIR_CONFIG . '/parameters.yml');
+    $params = Yaml::parse(Application::getDirConfig() . '/parameters.yml');
 
     $patterns = array_map(function($item) {
       return '/%' . $item . '%/';
@@ -29,7 +31,8 @@ class Config {
 
     $replacements = array_values($params['parameters']);
 
-    $this->data = Yaml::parse(DIR_CONFIG . '/config.yml', $patterns, $replacements);
+    $parsed_config = Yaml::parse(Application::getDirConfig() . '/config.yml', $patterns, $replacements);
+    $this->data = ArrayHelper::mulAssocToOneDem($parsed_config);
   }
 
   public function getAll() {
@@ -37,14 +40,14 @@ class Config {
   }
 
   public function get($key) {
-    $keys = explode('.', $key);
+    return isset($this->data[$key]) ? $this->data[$key] : false;
+  }
 
-    $child = $this->data;
-    while(!empty($keys)) {
-      $k = array_shift($keys);
-      $child = $child[$k];
-    }
+  public function set($key, $value) {
+    $this->data[$key] = $value;
+  }
 
-    return isset($child) ? $child : false;
+  private function validateConfig() {
+
   }
 }
