@@ -1,9 +1,0 @@
-app:
-  env: %app_environment%
-
-db:
-  host: %database_host%
-  port: %database_port%
-  name: %database_name%
-  user: %database_user%
-  password: %database_password%

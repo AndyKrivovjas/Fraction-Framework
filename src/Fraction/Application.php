@@ -23,7 +23,7 @@ class Application {
 
   public static $config;
 
-  public function __construct(Config $config) {
+  private function __construct(Config $config) {
     self::$config = $config;
 
     $this->init();
