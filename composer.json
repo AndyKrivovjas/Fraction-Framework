@@ -2,6 +2,7 @@
   "name": "fraction/fraction-framework",
   "type": "library",
   "description": "PHP Fraction Framework",
+  "license": "MIT",
   "keywords": ["framework", "php"],
   "authors": [
     {
