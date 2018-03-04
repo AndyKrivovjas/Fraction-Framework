@@ -16,30 +16,45 @@ namespace Fraction\Logger;
 
 
 use Fraction\Application;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerTrait;
+use Psr\Log\LogLevel;
 
-class Logger {
+class Logger implements LoggerInterface {
+  use LoggerTrait;
 
-  public static function error($message) {
-    $log = Application::getDirLogs('error') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
-    ini_set('error_log', $log);
-    $message = '[ERROR] ' . $message;
+  /**
+   * Logs with an arbitrary level.
+   *
+   * @param mixed $level
+   * @param string $message
+   * @param array $context
+   *
+   * @return void
+   */
+  public function log($level, $message, array $context = array()) {
+    switch ($level) {
+      case LogLevel::INFO:
+        $log = Application::getDirLogs('info') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
+        ini_set('error_log', $log);
+        $message = '[INFO] ' . $message;
+        break;
+      case LogLevel::NOTICE:
+        $log = Application::getDirLogs('notice') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
+        ini_set('error_log', $log);
+        $message = '[NOTICE] ' . $message;
+        break;
+      case LogLevel::ERROR:
+        $log = Application::getDirLogs('error') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
+        ini_set('error_log', $log);
+        $message = '[ERROR] ' . $message;
+        break;
+      default:
+        $log = Application::getDirLogs('info') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
+        ini_set('error_log', $log);
+        $message = '[INFO] ' . $message;
+    }
+
     error_log($message);
   }
-
-  public static function notice($message) {
-    $log = Application::getDirLogs('notice') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
-    ini_set('error_log', $log);
-    $message = '[NOTICE] ' . $message;
-    error_log($message);
-  }
-
-  public static function info($message) {
-    global $app;
-
-    $log = Application::getDirLogs('info') . '/' . date('Y-m-d') . '-' . Application::$config->get('app.env') . '.log';
-    ini_set('error_log', $log);
-    $message = '[INFO] ' . $message;
-    error_log($message);
-  }
-
 }

@@ -18,7 +18,7 @@ trait ApplicationConstantsTrait {
   private static $constants = [];
 
   public static function defineConstants() {
-    self::$constants['DIR_ROOT']        = $_SERVER['DOCUMENT_ROOT'];
+    self::$constants['DIR_ROOT']        = dirname($_SERVER['SCRIPT_FILENAME']);
     self::$constants['DIR_ENGINE']      = self::$constants['DIR_ROOT'] . '/engine';
     self::$constants['DIR_APP']         = self::$constants['DIR_ROOT'] . '/app';
     self::$constants['DIR_CONFIG']      = self::$constants['DIR_ROOT'] . '/config';

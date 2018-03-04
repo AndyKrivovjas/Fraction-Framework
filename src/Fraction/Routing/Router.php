@@ -17,4 +17,11 @@ namespace Fraction\Routing;
 
 class Router {
 
+  public function __construct($routes) {
+  }
+
+  public function dispatch() {
+
+  }
+
 }
